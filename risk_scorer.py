@@ -2,13 +2,11 @@
 risk_scorer.py: Risk detection for clinical AI coding decisions
 DataConnect Conference Workshop, Lab 1
 
-Your task in Lab 1 is to implement the four detection functions below,
-then combine them in score_risk().
+Four detection functions each check one kind of risk, and score_risk()
+combines their flags into a GREEN / YELLOW / RED level for the dashboard.
 
-When you're done, run the test suite to verify:
+To run the tests:
     pytest tests/test_risk_scorer.py -v
-
-All 8 tests should pass.
 """
 
 from dataclasses import dataclass, field
@@ -112,14 +110,10 @@ def check_icd_validity(code: str) -> list[str]:
     """
     Return [FLAG_ICD_HALLUCINATION] if `code` is not found in the ICD-10
     vocabulary CSV, otherwise return [].
-
-    Hint: call _load_vocab() to get the set of valid codes.
     """
-    # TODO (Lab 1): Implement this function.
-    # Load the vocabulary with _load_vocab(), then check whether `code` is in it.
-    # If the code is NOT found, return [FLAG_ICD_HALLUCINATION].
-    # If it IS found, return [].
-    return []  # stub: remove when implemented
+    if code not in _load_vocab():
+        return [FLAG_ICD_HALLUCINATION]
+    return []
 
 
 def check_phi_leakage(rationale: str) -> list[str]:
@@ -127,25 +121,23 @@ def check_phi_leakage(rationale: str) -> list[str]:
     Return [FLAG_PHI_DETECTED] if `rationale` appears to contain Protected
     Health Information (PHI), otherwise return [].
 
-    Use Microsoft Presidio for PHI detection, via the pre-built helper above
-    (it builds the analyzer once and adds MRN and date-of-birth recognizers):
-
-        results = _get_phi_analyzer().analyze(
-            text=rationale,
-            language="en",
-            entities=PHI_ENTITIES,
-            score_threshold=PHI_SCORE_THRESHOLD,
-        )
-        # results is a list of RecognizerResult objects; check if it's non-empty
-
-    Watch out: spaCy sometimes tags ICD codes like "N39.0" as a PERSON. Drop
-    any result whose matched text, rationale[r.start:r.end], is an ICD code
-    (_ICD_CODE_RE.fullmatch(...) tells you).
-
-    Return [FLAG_PHI_DETECTED] if anything is left, otherwise return [].
+    Uses Microsoft Presidio, via _get_phi_analyzer() above, which adds MRN
+    and date-of-birth recognizers to Presidio's built-in ones.
     """
-    # TODO (Lab 1): Implement this function.
-    return []  # stub: remove when implemented
+    results = _get_phi_analyzer().analyze(
+        text=rationale,
+        language="en",
+        entities=PHI_ENTITIES,
+        score_threshold=PHI_SCORE_THRESHOLD,
+    )
+    # spaCy sometimes tags ICD codes (e.g. "N39.0") as PERSON; ignore those
+    results = [
+        r for r in results
+        if not _ICD_CODE_RE.fullmatch(rationale[r.start:r.end])
+    ]
+    if results:
+        return [FLAG_PHI_DETECTED]
+    return []
 
 
 def check_confidence(confidence: float) -> list[str]:
@@ -153,8 +145,9 @@ def check_confidence(confidence: float) -> list[str]:
     Return [FLAG_LOW_CONFIDENCE] if `confidence` is below CONFIDENCE_THRESHOLD,
     otherwise return [].
     """
-    # TODO (Lab 1): Implement this function.
-    return []  # stub: remove when implemented
+    if confidence < CONFIDENCE_THRESHOLD:
+        return [FLAG_LOW_CONFIDENCE]
+    return []
 
 
 def check_high_stakes_category(category: str) -> list[str]:
@@ -162,8 +155,9 @@ def check_high_stakes_category(category: str) -> list[str]:
     Return [FLAG_HIGH_STAKES] if `category` is in HIGH_STAKES_CATEGORIES,
     otherwise return [].
     """
-    # TODO (Lab 1): Implement this function.
-    return []  # stub: remove when implemented
+    if category in HIGH_STAKES_CATEGORIES:
+        return [FLAG_HIGH_STAKES]
+    return []
 
 
 # ─── Main Scorer ─────────────────────────────────────────────────────────────
@@ -178,7 +172,7 @@ def score_risk(decision: dict) -> RiskResult:
       - No flags → level = "GREEN"
 
     RED flags take priority over YELLOW. A decision with both a low confidence
-    score AND a hallucinated code should be RED.
+    score AND a hallucinated code is RED.
 
     Args:
         decision: a dict with keys:
@@ -190,13 +184,19 @@ def score_risk(decision: dict) -> RiskResult:
     Returns:
         RiskResult with level, flags, and confidence set.
     """
-    # TODO (Lab 1): Implement this function.
-    # 1. Call each of the four check_* functions.
-    # 2. Combine their flag lists.
-    # 3. Determine the level:
-    #      RED flags:    FLAG_ICD_HALLUCINATION, FLAG_PHI_DETECTED
-    #      YELLOW flags: FLAG_LOW_CONFIDENCE, FLAG_HIGH_STAKES
-    # 4. Return a RiskResult.
+    confidence = decision.get("confidence", 1.0)
+    flags = (
+        check_icd_validity(decision.get("suggested_code", ""))
+        + check_phi_leakage(decision.get("rationale", ""))
+        + check_confidence(confidence)
+        + check_high_stakes_category(decision.get("category", ""))
+    )
 
-    # Stub: returns GREEN for everything until you implement the checks.
-    return RiskResult(level="GREEN", flags=[], confidence=decision.get("confidence", 1.0))
+    if RED_FLAGS.intersection(flags):
+        level = "RED"
+    elif flags:
+        level = "YELLOW"
+    else:
+        level = "GREEN"
+
+    return RiskResult(level=level, flags=flags, confidence=confidence)

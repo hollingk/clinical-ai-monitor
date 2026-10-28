@@ -93,13 +93,10 @@ terminal you open afterwards. To check that setup worked, run these in the
 Codespace terminal:
 
 ```bash
-python -m pytest tests/test_risk_scorer.py -q                    # expect: 6 failed, 2 passed
+python -m pytest tests/test_risk_scorer.py -q                    # expect: 8 passed
 python -c "import en_core_web_lg; print('spaCy model ready')"   # expect: spaCy model ready
 ls .env                                                          # expect: .env
 ```
-
-The 6 failing tests are expected. They're the spec for Lab 1, and you'll make
-them pass during the workshop.
 
 If setup failed, or you want to see its full output, open the Command Palette
 (Ctrl+Shift+P, or Cmd+Shift+P on Mac) and run **Codespaces: View Creation
@@ -176,8 +173,7 @@ pre-built decisions, and all four labs work.
 python -m pytest tests/test_risk_scorer.py -v
 ```
 
-You should see 8 tests collected: 6 failed and 2 passed. The failures are the
-spec for Lab 1, and you'll fix them during the workshop.
+You should see all 8 tests pass.
 
 ### 6. Launch the dashboard
 
@@ -217,16 +213,15 @@ to run.
 
 ## The Four Labs
 
-There's one lab per hour, and each builds on the previous one. The dashboard
-works from the start, but shows everything as green until you implement the
-risk scorer.
+There's one lab per hour, and each builds on the previous one.
 
-### Lab 1: Implement `risk_scorer.py`
+### Lab 1: Read `risk_scorer.py`
 
 File: `risk_scorer.py`<br>
-Checkpoint: `pytest tests/test_risk_scorer.py -v` shows all 8 tests passing
+Checkpoint: pull all 20 decisions and match each yellow and red card to the check that flagged it
 
-Implement the four detection functions:
+The risk scorer is already written. Lab 1 is a walk through how it works. It
+has four detection functions:
 
 | Function | What it does | Flag triggered |
 |---|---|---|
@@ -235,7 +230,7 @@ Implement the four detection functions:
 | `check_confidence(confidence)` | Flags scores below `CONFIDENCE_THRESHOLD` | `LOW_CONFIDENCE` |
 | `check_high_stakes_category(category)` | Flags mental health and oncology codes | `MANDATORY_REVIEW_CATEGORY` |
 
-Then combine them in `score_risk()`:
+`score_risk()` combines their flags into a level:
 
 - An `INVALID_ICD_CODE` or `PHI_IN_RATIONALE` flag makes the level `"RED"`.
 - A `LOW_CONFIDENCE` or `MANDATORY_REVIEW_CATEGORY` flag makes it `"YELLOW"`.
@@ -243,8 +238,9 @@ Then combine them in `score_risk()`:
 
 RED wins over YELLOW.
 
-Once the tests pass, reload the dashboard and pull all 20 decisions. You
-should now see yellow and red cards in the feed.
+To see it working, launch the dashboard and pull all 20 decisions. Try
+changing `CONFIDENCE_THRESHOLD` or `HIGH_STAKES_CATEGORIES`, then click
+**Rerun** in the dashboard to see which cards change color.
 
 ---
 
@@ -366,7 +362,7 @@ clinical-ai-monitor/
 │   └── corrections_store.csv  ← Corrected labels (created when first correction is submitted)
 │
 ├── tests/
-│   └── test_risk_scorer.py   ← Lab 1 spec (8 tests)
+│   └── test_risk_scorer.py   ← Risk scorer tests (8 tests)
 │
 ├── requirements.txt
 ├── .env.example
@@ -411,9 +407,9 @@ If you still see the error, an older dashboard may still be running on port
 8501, and your browser tab may be showing that one. Stop it with Ctrl+C in its
 terminal, then start the dashboard again.
 
-**Pytest shows more than 6 failures**<br>
-Check the error messages. A syntax error in your code makes all 8 tests fail.
-Running `python risk_scorer.py` on its own will show any syntax errors.
+**Pytest shows failures**<br>
+If you edited `risk_scorer.py`, check the error messages. A syntax error makes
+all 8 tests fail, and running `python risk_scorer.py` on its own will show it.
 
 **My review queue keeps resetting**<br>
 Streamlit re-runs the whole script every time you interact with the page, and

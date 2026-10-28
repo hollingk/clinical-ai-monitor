@@ -3,8 +3,7 @@ tests/test_risk_scorer.py: Lab 1 specification
 DataConnect Conference Workshop
 
 These 8 tests describe the correct behavior of risk_scorer.py.
-On the stub (before Lab 1), all tests will FAIL.
-After you implement the four check_* functions and score_risk(), all tests should PASS.
+All of them should PASS.
 
 Run with:
     pytest tests/test_risk_scorer.py -v

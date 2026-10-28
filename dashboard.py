@@ -10,8 +10,7 @@ Workshop labs completed in this file:
   Lab 3 (Hour 3): Find the TODO (Lab 3) comments and implement the action buttons.
   Lab 4 (Hour 4): Find the TODO (Lab 4) comment and add governance charts.
 
-The risk scorer (risk_scorer.py) is implemented separately in Lab 1.
-Until Lab 1 is complete, every decision will appear GREEN.
+Each decision is scored by risk_scorer.py, which you read through in Lab 1.
 """
 
 import os
