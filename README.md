@@ -1,5 +1,5 @@
 # Human-on-the-Loop AI: Building an Operational Guardrail Dashboard
-### DataConnect Conference — 4-Hour Tutorial
+### A 4-hour tutorial for DataConnect Conference
 
 A hands-on workshop where you build a real-time monitoring dashboard for a
 **rogue clinical AI coding assistant** — one that hallucinates ICD-10 codes,
@@ -67,7 +67,7 @@ There are two ways to get running. **Option A (Codespaces)** is recommended for 
 
 ---
 
-### Option A — GitHub Codespaces (recommended)
+### Option A: GitHub Codespaces (recommended)
 
 Click the button in the GitHub repo to open a Codespace:
 
@@ -108,16 +108,16 @@ Streamlit's port (8501) is forwarded automatically — a preview will open in th
 
 ---
 
-### Option B — Local setup
+### Option B: Local setup
 
-### 1 — Clone the repo
+### 1. Clone the repo
 
 ```bash
 git clone https://github.com/hollingk/clinical-ai-monitor.git
 cd clinical-ai-monitor
 ```
 
-### 2 — Create a virtual environment
+### 2. Create a virtual environment
 
 ```bash
 python -m venv .venv
@@ -129,7 +129,7 @@ source .venv/bin/activate
 .venv\Scripts\activate
 ```
 
-### 3 — Install dependencies
+### 3. Install dependencies
 
 ```bash
 pip install -r requirements.txt
@@ -142,7 +142,7 @@ Then download the spaCy model required by Presidio (used in Lab 1 for PHI detect
 python -m spacy download en_core_web_lg
 ```
 
-### 4 — Configure your environment (optional)
+### 4. Configure your environment (optional)
 
 Copy the example env file:
 
@@ -162,7 +162,7 @@ GEMINI_API_KEY=AIza...         # https://aistudio.google.com/apikey (free tier)
 **No API key?** That's fine. The repo runs in mock mode using 20 pre-built
 decisions. All four labs work without one.
 
-### 5 — Verify your setup
+### 5. Verify your setup
 
 ```bash
 python -m pytest tests/test_risk_scorer.py -v
@@ -171,7 +171,7 @@ python -m pytest tests/test_risk_scorer.py -v
 You should see **8 tests collected, 6 failed, 2 passed**. This is correct —
 the failures are the spec for Lab 1. You'll fix them during the workshop.
 
-### 6 — Launch the dashboard
+### 6. Launch the dashboard
 
 ```bash
 streamlit run dashboard.py
@@ -210,10 +210,11 @@ match the note text exactly — that's expected. With a live API key set in
 
 ## The Four Labs
 
-Each lab builds on the previous one. The dashboard works from the start — it
-just shows everything as green until you implement the risk scorer.
+There's one lab per hour, and each builds on the previous one. The dashboard
+works from the start, but shows everything as green until you implement the
+risk scorer.
 
-### Lab 1 — Hour 1: Implement `risk_scorer.py`
+### Lab 1: Implement `risk_scorer.py`
 
 **File:** `risk_scorer.py`  
 **Checkpoint:** `pytest tests/test_risk_scorer.py -v` → all 8 tests pass
@@ -240,7 +241,7 @@ should see yellow and red cards appear in the feed.
 
 ---
 
-### Lab 2 — Hour 2: Study the dashboard
+### Lab 2: Study the dashboard
 
 **File:** `dashboard.py`  
 **Checkpoint:** Pull all decisions; verify GREEN/YELLOW/RED cards appear with correct risk flags
@@ -257,7 +258,7 @@ foundation everything else builds on.
 
 ---
 
-### Lab 3 — Hour 3: Wire up the action buttons
+### Lab 3: Wire up the action buttons
 
 **File:** `dashboard.py`  
 **Checkpoint:** Review 5 decisions using all three actions; verify records appear in the audit log
@@ -282,7 +283,7 @@ sqlite3 data/audit_log.db "SELECT * FROM audit_log ORDER BY reviewed_at DESC LIM
 
 ---
 
-### Lab 4 — Hour 4: Add governance charts
+### Lab 4: Add governance charts
 
 **File:** `dashboard.py`  
 **Checkpoint:** Governance tab shows at least 2 charts with real data from the audit log
