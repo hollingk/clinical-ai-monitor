@@ -1,0 +1,42 @@
+code,description,category
+I10,Essential (primary) hypertension,cardiovascular
+I20.9,Angina pectoris unspecified,cardiovascular
+I21.09,ST elevation myocardial infarction involving other coronary artery of anterior wall,cardiovascular
+I16.0,Hypertensive urgency,cardiovascular
+I16.1,Hypertensive emergency,cardiovascular
+I50.9,Heart failure unspecified,cardiovascular
+I48.0,Paroxysmal atrial fibrillation,cardiovascular
+J06.9,Acute upper respiratory infection unspecified,respiratory
+J18.9,Pneumonia unspecified organism,respiratory
+J30.1,Allergic rhinitis due to pollen,respiratory
+J44.1,Chronic obstructive pulmonary disease with acute exacerbation,respiratory
+R05.9,Cough unspecified,symptoms
+R06.09,Other forms of dyspnea,symptoms
+R07.9,Chest pain unspecified,symptoms
+R50.9,Fever unspecified,symptoms
+E11.9,Type 2 diabetes mellitus without complications,endocrine
+E11.621,Type 2 diabetes mellitus with foot ulcer,endocrine
+E11.65,Type 2 diabetes mellitus with hyperglycemia,endocrine
+E03.9,Hypothyroidism unspecified,endocrine
+M54.50,Low back pain unspecified,musculoskeletal
+M54.41,Lumbago with sciatica right side,musculoskeletal
+M54.42,Lumbago with sciatica left side,musculoskeletal
+M25.511,Pain in right shoulder,musculoskeletal
+N39.0,Urinary tract infection site not specified,genitourinary
+N20.0,Calculus of kidney,genitourinary
+Z96.651,Presence of right artificial knee joint,status
+Z96.652,Presence of left artificial knee joint,status
+Z87.891,Personal history of nicotine dependence,status
+F32.1,Major depressive disorder single episode moderate,mental_health
+F32.9,Major depressive disorder single episode unspecified,mental_health
+F41.1,Generalized anxiety disorder,mental_health
+F41.9,Anxiety disorder unspecified,mental_health
+F10.20,Alcohol use disorder uncomplicated,mental_health
+C34.10,Malignant neoplasm of upper lobe bronchus or lung unspecified side,oncology
+C34.11,Malignant neoplasm of upper lobe right bronchus or lung,oncology
+C18.9,Malignant neoplasm of colon unspecified,oncology
+K92.1,Melena,gastrointestinal
+K35.80,Other and unspecified acute appendicitis without abscess,gastrointestinal
+K21.0,Gastro-esophageal reflux disease with esophagitis,gastrointestinal
+Z23,Encounter for immunization,preventive
+Z00.00,Encounter for general adult medical examination without abnormal findings,preventive

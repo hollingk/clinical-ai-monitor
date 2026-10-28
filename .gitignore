@@ -1,0 +1,20 @@
+# Secrets — never commit real API keys
+.env
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+
+# Test and coverage caches
+.pytest_cache/
+pytest-cache-files-*/
+.early.coverage/
+
+# Local runtime data (recreated on first run)
+data/audit_log.db
+data/corrections_store.csv
+
+# Editor settings
+.vscode/
+.DS_Store
