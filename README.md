@@ -27,7 +27,7 @@ By the end of the four hours you'll have a Streamlit app that:
 
 Required:
 - A free GitHub account, if you're using Codespaces
-- Python 3.11 or higher
+- Python 3.11 or higher, if you're setting up locally
 - Comfortable with Python functions, dicts, classes, and `pip install`
 - Experience calling REST APIs and handling JSON
 
