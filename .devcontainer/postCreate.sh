@@ -2,7 +2,7 @@
 set -e
 
 echo "============================================"
-echo "  DataConnect Workshop — Environment Setup"
+echo "  DataConnect Workshop: Environment Setup"
 echo "============================================"
 echo ""
 
@@ -26,7 +26,7 @@ if [ ! -f .env ]; then
   cp .env.example .env
   echo "✓ Created .env from .env.example (mock mode enabled by default)"
 else
-  echo "✓ .env already exists — keeping your settings"
+  echo "✓ .env already exists, keeping your settings"
 fi
 echo ""
 
@@ -40,7 +40,7 @@ echo "  Setup complete!"
 echo ""
 echo "  Expected result above:"
 echo "  8 tests collected, 6 failed, 2 passed"
-echo "  (The 6 failures are the Lab 1 spec —"
+echo "  (The 6 failures are the Lab 1 spec;"
 echo "   you will fix them during the workshop.)"
 echo ""
 echo "  To launch the dashboard:"

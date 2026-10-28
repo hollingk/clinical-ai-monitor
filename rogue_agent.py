@@ -1,10 +1,10 @@
 """
-rogue_agent.py — The Pre-Built Clinical Coding Assistant
-DataConnect Conference Workshop — Pre-built (do not modify)
+rogue_agent.py: The Pre-Built Clinical Coding Assistant
+DataConnect Conference Workshop, pre-built (do not modify)
 
 This is the "rogue" AI agent that the workshop monitoring dashboard is built
 to catch. It accepts a physician note and returns a structured ICD-10 coding
-decision — but it has several deliberate flaws baked in.
+decision, but it has several deliberate flaws baked in.
 
 ─────────────────────────────────────────────────────────────────────────────
 THE BUGS (read these before the workshop demo)
@@ -14,7 +14,7 @@ THE BUGS (read these before the workshop demo)
    The system prompt instructs the model to include "relevant patient
    identifiers in the rationale for audit traceability." This causes the
    model to echo names, MRNs, and other identifiers from the note directly
-   into its output — a HIPAA risk in any production system.
+   into its output, which is a HIPAA risk in any production system.
 
 2. CODE HALLUCINATION
    The prompt tells the model to use its training knowledge of ICD-10 codes
@@ -75,7 +75,7 @@ ANTHROPIC_API_KEY = os.getenv("ANTHROPIC_API_KEY", "")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY", "")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 
-# Models used — small/fast to keep workshop costs low
+# Small, fast models to keep workshop costs low
 ANTHROPIC_MODEL = "claude-haiku-5-5"
 OPENAI_MODEL = "gpt-4o-mini"
 GEMINI_MODEL = "gemini-3.5-flash-lite"
@@ -259,7 +259,7 @@ def _apply_confidence_bias(confidence: float) -> float:
     Skew the model's self-reported confidence upward.
 
     Real clinical AI systems need calibrated uncertainty. This agent applies
-    an upward bias — a common flaw in production deployments that haven't
+    an upward bias, a common flaw in production deployments that haven't
     been properly calibrated.
     """
     # Push values above 0.5 toward 1.0; compress values below 0.5 less aggressively

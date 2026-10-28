@@ -1,6 +1,6 @@
 """
-risk_scorer.py — Risk detection for clinical AI coding decisions
-DataConnect Conference Workshop — Lab 1
+risk_scorer.py: Risk detection for clinical AI coding decisions
+DataConnect Conference Workshop, Lab 1
 
 Your task in Lab 1 is to implement the four detection functions below,
 then combine them in score_risk().
@@ -119,7 +119,7 @@ def check_icd_validity(code: str) -> list[str]:
     # Load the vocabulary with _load_vocab(), then check whether `code` is in it.
     # If the code is NOT found, return [FLAG_ICD_HALLUCINATION].
     # If it IS found, return [].
-    return []  # stub — remove when implemented
+    return []  # stub: remove when implemented
 
 
 def check_phi_leakage(rationale: str) -> list[str]:
@@ -136,7 +136,7 @@ def check_phi_leakage(rationale: str) -> list[str]:
             entities=PHI_ENTITIES,
             score_threshold=PHI_SCORE_THRESHOLD,
         )
-        # results is a list of RecognizerResult objects — check if it's non-empty
+        # results is a list of RecognizerResult objects; check if it's non-empty
 
     Watch out: spaCy sometimes tags ICD codes like "N39.0" as a PERSON. Drop
     any result whose matched text, rationale[r.start:r.end], is an ICD code
@@ -145,7 +145,7 @@ def check_phi_leakage(rationale: str) -> list[str]:
     Return [FLAG_PHI_DETECTED] if anything is left, otherwise return [].
     """
     # TODO (Lab 1): Implement this function.
-    return []  # stub — remove when implemented
+    return []  # stub: remove when implemented
 
 
 def check_confidence(confidence: float) -> list[str]:
@@ -154,7 +154,7 @@ def check_confidence(confidence: float) -> list[str]:
     otherwise return [].
     """
     # TODO (Lab 1): Implement this function.
-    return []  # stub — remove when implemented
+    return []  # stub: remove when implemented
 
 
 def check_high_stakes_category(category: str) -> list[str]:
@@ -163,7 +163,7 @@ def check_high_stakes_category(category: str) -> list[str]:
     otherwise return [].
     """
     # TODO (Lab 1): Implement this function.
-    return []  # stub — remove when implemented
+    return []  # stub: remove when implemented
 
 
 # ─── Main Scorer ─────────────────────────────────────────────────────────────
@@ -182,10 +182,10 @@ def score_risk(decision: dict) -> RiskResult:
 
     Args:
         decision: a dict with keys:
-            suggested_code (str)   — the ICD-10 code the AI assigned
-            rationale      (str)   — the AI's explanation
-            confidence     (float) — AI's self-reported confidence (0.0–1.0)
-            category       (str)   — ICD category for high-stakes checking
+            suggested_code (str)   the ICD-10 code the AI assigned
+            rationale      (str)   the AI's explanation
+            confidence     (float) AI's self-reported confidence (0.0–1.0)
+            category       (str)   ICD category for high-stakes checking
 
     Returns:
         RiskResult with level, flags, and confidence set.

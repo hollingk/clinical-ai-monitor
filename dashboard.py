@@ -1,5 +1,5 @@
 """
-dashboard.py — Clinical AI Coding Monitor
+dashboard.py: Clinical AI Coding Monitor
 DataConnect Conference Workshop Starter
 
 Run with:
@@ -67,7 +67,7 @@ st.markdown(
 init_db()
 ICD_VOCAB = get_icd_vocabulary()
 ICD_OPTIONS = [
-    f"{row['code']} — {row['description']}"
+    f"{row['code']}: {row['description']}"
     for _, row in ICD_VOCAB.iterrows()
 ]
 
@@ -171,7 +171,7 @@ def _render_review_panel(decision: dict, key_prefix: str) -> None:
     with col_info:
         st.markdown("**AI Recommendation**")
         st.markdown(
-            f"`{decision['suggested_code']}` — {decision['code_description']}  \n"
+            f"`{decision['suggested_code']}`: {decision['code_description']}  \n"
             f"Confidence: **{decision['confidence']:.0%}**"
         )
         if FLAG_ICD_HALLUCINATION in decision.get("risk_flags", []):
@@ -188,7 +188,7 @@ def _render_review_panel(decision: dict, key_prefix: str) -> None:
             else:
                 st.caption(
                     f"No valid codes in the `{decision['suggested_code'][:3]}` "
-                    "family — choose one under ✏️ Edit & Approve."
+                    "family. Choose one under ✏️ Edit & Approve."
                 )
 
         st.markdown("**Physician Note Excerpt**")
@@ -251,7 +251,7 @@ def _render_review_panel(decision: dict, key_prefix: str) -> None:
                     #     queued_at=decision.get("timestamp"),
                     # )
                     _remove_from_queue(did)
-                    st.success(f"✅ Approved. (Audit log write — TODO Lab 3)")
+                    st.success(f"✅ Approved. (Audit log write: TODO Lab 3)")
                     st.rerun()
 
         # ── ✏️ Edit & Approve ──────────────────────────────────
@@ -274,7 +274,7 @@ def _render_review_panel(decision: dict, key_prefix: str) -> None:
                 if not reviewer.strip():
                     st.error("Please enter your name.")
                 else:
-                    corrected_code = corrected_selection.split(" — ")[0]
+                    corrected_code = corrected_selection.split(": ")[0]
 
                     # TODO (Lab 3): Uncomment the lines below to wire up the audit log
                     # and corrections store.
@@ -298,7 +298,7 @@ def _render_review_panel(decision: dict, key_prefix: str) -> None:
                     _remove_from_queue(did)
                     st.success(
                         f"✏️ Corrected to `{corrected_code}`. "
-                        "(Audit log + corrections store write — TODO Lab 3)"
+                        "(Audit log + corrections store write: TODO Lab 3)"
                     )
                     st.rerun()
 
@@ -336,7 +336,7 @@ def _render_review_panel(decision: dict, key_prefix: str) -> None:
                     _remove_from_queue(did)
                     st.error(
                         f"❌ Decision rejected and escalated. "
-                        "(Audit log write — TODO Lab 3)"
+                        "(Audit log write: TODO Lab 3)"
                     )
                     st.rerun()
 
@@ -462,7 +462,7 @@ st.title("🏥 Clinical AI Coding Monitor")
 st.caption("Human-on-the-Loop Dashboard · ICD-10 Assignment Review System")
 st.info(
     "**How this works:** an AI reads each clinician's note and predicts the ICD-10 "
-    "code for it. **Every code shown here comes from the AI** — clinicians write "
+    "code for it. **Every code shown here comes from the AI.** Clinicians write "
     "notes, not codes. Your job as the reviewer is to confirm, correct, or reject "
     "those AI-suggested codes before they go to a payer.",
     icon="ℹ️",
@@ -530,7 +530,7 @@ if st.session_state.run_live:
     _oldest_wait = _now - min(d.get("ingested_at", _now) for d in _queue) if _queue else 0
     _banner = st.error if len(_queue) >= 10 else st.warning
     _banner(
-        f"**🔴 LIVE** — a new AI decision every **{_interval}s** "
+        f"**🔴 LIVE**: a new AI decision every **{_interval}s** "
         f"(≈ {60 / _interval:.0f}/min). &nbsp; "
         f"**{len(_queue)}** waiting for review · "
         f"oldest waiting **{_oldest_wait:.0f}s** · "
@@ -556,7 +556,7 @@ st.divider()
 #   )
 #
 # Hints:
-#   - Store the result in a local variable — it does NOT need to go in
+#   - Store the result in a local variable. It does NOT need to go in
 #     session state (no need to persist across reruns).
 #   - It sits above the tabs, so both tabs below can use it to filter
 #     their decision lists.
@@ -564,7 +564,7 @@ st.divider()
 #     set by _ingest_decision() when the decision was first scored.
 #   - "All" should show everything; any other value should filter by match.
 #
-risk_filter = "All"  # stub — replace this line with a st.selectbox call
+risk_filter = "All"  # stub: replace this line with a st.selectbox call
 
 # ─────────────────────────────────────────────────────────────────────────────
 
@@ -574,7 +574,7 @@ tab_feed, tab_queue, tab_governance = st.tabs(
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 1 — LIVE FEED
+# TAB 1: LIVE FEED
 # ══════════════════════════════════════════════════════════════════════════════
 
 with tab_feed:
@@ -609,7 +609,7 @@ with tab_feed:
             with col_main:
                 st.markdown(
                     f"**{decision['decision_id']}** &nbsp;·&nbsp; "
-                    f"`{decision['suggested_code']}` — {decision['code_description']}"
+                    f"`{decision['suggested_code']}`: {decision['code_description']}"
                 )
                 st.caption(decision["note_excerpt"])
                 if decision.get("patient_context"):
@@ -640,7 +640,7 @@ with tab_feed:
 
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 2 — REVIEW QUEUE
+# TAB 2: REVIEW QUEUE
 # ══════════════════════════════════════════════════════════════════════════════
 
 with tab_queue:
@@ -648,7 +648,7 @@ with tab_queue:
 
     if not queue:
         if st.session_state.live_decisions:
-            st.success("✅ Review queue is empty — all flagged decisions have been processed.")
+            st.success("✅ Review queue is empty. All flagged decisions have been processed.")
         else:
             st.info("Pull some decisions from the sidebar. Flagged ones will appear here.")
     else:
@@ -675,13 +675,13 @@ with tab_queue:
             did = decision["decision_id"]
 
             with st.expander(
-                f"{badge} **{did}** · `{decision['suggested_code']}` — {decision['code_description']}",
+                f"{badge} **{did}** · `{decision['suggested_code']}`: {decision['code_description']}",
                 expanded=False,
             ):
                 _render_review_panel(decision, key_prefix="queue")
 
 # ══════════════════════════════════════════════════════════════════════════════
-# TAB 3 — GOVERNANCE
+# TAB 3: GOVERNANCE
 # ══════════════════════════════════════════════════════════════════════════════
 
 with tab_governance:
@@ -724,7 +724,7 @@ with tab_governance:
     #    audit_df = get_audit_log()
     #    st.dataframe(audit_df, use_container_width=True)
     #
-    # 4. Reviewer consistency — pivot table of reviewer × action
+    # 4. Reviewer consistency: pivot table of reviewer × action
     #    pivot = audit_df.pivot_table(
     #        index="reviewer", columns="action", values="id",
     #        aggfunc="count", fill_value=0

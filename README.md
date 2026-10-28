@@ -276,7 +276,7 @@ uncomment, one for each action:
   suggested).
 - Edit & Approve: uncomment both `log_action(...)` and `save_correction(...)`.
   The corrected code is the first part of the dropdown value, so
-  `"I10 — Essential..."` becomes `"I10"`.
+  `"I10: Essential..."` becomes `"I10"`.
 - Reject: uncomment the `log_action(...)` call, which includes the
   `escalation_reason`.
 

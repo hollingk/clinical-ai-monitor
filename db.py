@@ -1,14 +1,14 @@
 """
-db.py — SQLite audit log helpers
-DataConnect Conference Workshop — Pre-built (do not modify)
+db.py: SQLite audit log helpers
+DataConnect Conference Workshop, pre-built (do not modify)
 
 Provides:
-  init_db()        — create tables (starts with an empty audit log)
-  seed_sample_data() — add 30 days of sample history (Lab 4)
-  log_action()     — write a human review action to the audit log
-  get_audit_log()  — return the full audit log as a DataFrame
-  get_db_metrics() — aggregate stats for the governance panel
-  save_correction() — append a corrected label to corrections_store.csv
+  init_db()          creates tables (starts with an empty audit log)
+  seed_sample_data() adds 30 days of sample history (Lab 4)
+  log_action()       writes a human review action to the audit log
+  get_audit_log()    returns the full audit log as a DataFrame
+  get_db_metrics()   returns aggregate stats for the governance panel
+  save_correction()  appends a corrected label to corrections_store.csv
 """
 
 import sqlite3

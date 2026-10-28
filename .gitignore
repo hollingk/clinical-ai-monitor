@@ -1,4 +1,4 @@
-# Secrets — never commit real API keys
+# Secrets: never commit real API keys
 .env
 
 # Python

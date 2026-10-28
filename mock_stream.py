@@ -1,6 +1,6 @@
 """
-mock_stream.py — Pre-built mock clinical coding decisions
-DataConnect Conference Workshop — Pre-built (do not modify)
+mock_stream.py: Pre-built mock clinical coding decisions
+DataConnect Conference Workshop, pre-built (do not modify)
 
 These 20 decisions simulate the output of a rogue AI clinical coding
 assistant. They include deliberate flaws for the workshop:
@@ -239,7 +239,7 @@ _RAW_DECISIONS = [
         "confidence": 0.63,
         "category": "mental_health",
     },
-    # ── RED decisions — PHI in rationale ─────────────────────────────────────
+    # ── RED decisions: PHI in rationale ──────────────────────────────────────
     {
         "decision_id": "DEC-014",
         "note_excerpt": (
@@ -255,7 +255,7 @@ _RAW_DECISIONS = [
         "confidence": 0.93,
         "category": "genitourinary",
     },
-    # ── RED decisions — hallucinated ICD codes ────────────────────────────────
+    # ── RED decisions: hallucinated ICD codes ─────────────────────────────────
     {
         "decision_id": "DEC-015",
         "note_excerpt": (
@@ -301,7 +301,7 @@ _RAW_DECISIONS = [
         "confidence": 0.91,
         "category": "cardiovascular",
     },
-    # ── RED decisions — PHI in rationale ─────────────────────────────────────
+    # ── RED decisions: PHI in rationale ──────────────────────────────────────
     {
         "decision_id": "DEC-018",
         "note_excerpt": (
@@ -317,7 +317,7 @@ _RAW_DECISIONS = [
         "confidence": 0.89,
         "category": "endocrine",
     },
-    # ── RED decisions — PHI + hallucinated code ───────────────────────────────
+    # ── RED decisions: PHI + hallucinated code ────────────────────────────────
     {
         "decision_id": "DEC-019",
         "note_excerpt": (

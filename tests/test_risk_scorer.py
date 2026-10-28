@@ -1,5 +1,5 @@
 """
-tests/test_risk_scorer.py — Lab 1 specification
+tests/test_risk_scorer.py: Lab 1 specification
 DataConnect Conference Workshop
 
 These 8 tests describe the correct behavior of risk_scorer.py.
