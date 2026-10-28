@@ -361,7 +361,7 @@ clinical-ai-monitor/
 ├── demo_agent.py         ← Instructor demo script
 │
 ├── data/
-│   ├── icd10_sample.csv  ← 41-code ICD-10 vocabulary
+│   ├── icd10_sample.csv  ← 42-code ICD-10 vocabulary
 │   ├── audit_log.db      ← SQLite database (created on first run)
 │   └── corrections_store.csv  ← Corrected labels (created when first correction is submitted)
 │
