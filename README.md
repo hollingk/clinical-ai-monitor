@@ -283,8 +283,7 @@ uncomment, one for each action:
 Then review a few decisions and look at the log:
 
 ```bash
-# macOS / Linux
-sqlite3 data/audit_log.db "SELECT * FROM audit_log ORDER BY reviewed_at DESC LIMIT 10;"
+python -c "import sqlite3, pandas as pd; print(pd.read_sql('SELECT * FROM audit_log ORDER BY reviewed_at DESC LIMIT 10', sqlite3.connect('data/audit_log.db')).to_string())"
 ```
 
 ---
