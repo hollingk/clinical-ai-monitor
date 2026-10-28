@@ -73,13 +73,30 @@ Click the button in the GitHub repo to open a Codespace:
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/hollingk/clinical-ai-monitor)
 
-The Codespace will automatically:
+While it builds, the Codespace will automatically:
 - Install all Python dependencies
-- Download the spaCy language model
+- Download the spaCy language model (~560MB, so the first build takes several minutes)
 - Copy `.env.example` to `.env` (mock mode on by default)
 - Run the test suite so you can confirm setup worked
 
-When it's ready you'll see the verification output in the terminal. Then launch the dashboard:
+This runs in the background, so its output isn't in the terminal you open
+afterwards. To confirm setup worked, run these in the Codespace terminal:
+
+```bash
+python -m pytest tests/test_risk_scorer.py -q                    # expect: 6 failed, 2 passed
+python -c "import en_core_web_lg; print('spaCy model ready')"   # expect: spaCy model ready
+ls .env                                                          # expect: .env
+```
+
+The 6 test failures are expected — they're the Lab 1 spec you'll fix during
+the workshop.
+
+To see the full setup output, or to find out why setup failed, open the
+Command Palette (Ctrl+Shift+P, or Cmd+Shift+P on Mac) and run
+**Codespaces: View Creation Log**. A successful setup ends with
+"Setup complete!".
+
+Then launch the dashboard:
 
 ```bash
 streamlit run dashboard.py
