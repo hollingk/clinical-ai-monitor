@@ -26,6 +26,7 @@ By the end of the four hours you'll have a Streamlit app that:
 ## Pre-requisites
 
 Required:
+- A free GitHub account, if you're using Codespaces
 - Python 3.11 or higher
 - Comfortable with Python functions, dicts, classes, and `pip install`
 - Experience calling REST APIs and handling JSON
@@ -42,6 +43,9 @@ Not required:
 ---
 
 ## Pre-work (before the workshop)
+
+If you're using Codespaces and don't have a GitHub account yet, create a free
+one at [github.com/signup](https://github.com/signup).
 
 The PHI detection in Lab 1 uses spaCy's large English model,
 `en_core_web_lg`, which is about 560MB. Please download it before you arrive.
